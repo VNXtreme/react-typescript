@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta http-equiv="content-language" content="ja">
+    <meta charset="utf-8">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1" name="viewport">
+    <title>地図</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDg0JgU73D5xrFeROkDxbWQd1wEB_m3i2E"></script>
+
+    <!-- key test AIzaSyCrGHFRiyiefJl2JtF7bRWknI73lw14-->
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm3YK3_SLBOc3rk3cAG4CeMBtrHZEW3ho"></script>-->
+    
+    
+    
+    <script>
+        function initialize() {
+
+            var arg = new Object;
+
+            // パラメータを取得設定
+            var pair = location.search.substring(1).split('&');
+            for(var i=0;pair[i];i++) {
+                var kv = pair[i].split('=');
+                arg[kv[0]]=kv[1];
+            }
+            console.log(arg.latitude,arg.longitude);
+            // マップを表示する
+            var latlng = new google.maps.LatLng(arg.latitude,arg.longitude);
+            var myOptions = {
+              zoom: 17,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            // マーカーを表示する
+            var marker = new google.maps.Marker({
+               position: latlng,
+               map: map
+            });
+
+        }
+    </script>
+</head>
+    <body onload="initialize()">
+        <div id="map_canvas" style="width:100%; height:100%"></div>
+    </body>
+</html>

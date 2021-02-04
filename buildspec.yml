@@ -1,0 +1,42 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo update npm...
+      - npm install -g --force n
+      #- n latest
+      - npm update -g npm
+      - echo node -v
+      - node -v
+      - echo npm -v
+      - npm -v
+      - echo install yarn...
+      - npm install -g yarn
+      - echo yarn -v
+      - yarn -v
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - yarn install
+  build:
+    commands:
+      - echo Build started on `date`
+
+      # ビルド時に環境変数を埋め込むために .env ファイルを
+      # 各環境用 .env からコピーする
+      # (STAGE 環境変数は CodeBuild プロジェクトに設定する)
+      #- cp ".env.$STAGE" .env.production
+      - test "$STAGE" = production || cp ".env.$STAGE" .env.production
+
+      - echo Compiling the Node.js code
+      - yarn run build
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Distributing to S3...
+      - dash ./revision.sh
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build
