@@ -1,16 +1,9 @@
 import React, { Suspense } from 'react';
-import {
-  BrowserRouter as Router, Switch, Route, Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import moment from 'moment';
+import routeElements from './router/routeElements';
 
-import LoginPage from 'components/pages/login';
-import SignUpPage from 'components/pages/signup';
-import PrivateRoute from 'PrivateRoute';
-import Dashboard from 'components/pages/dashboard';
-import { compose } from 'redux';
-import routes from './routes';
 // momentの日本語設定
 moment.locale('ja', {
   months: ['１月', '2月', '3月', '4月', '5月', '６月', '７月', '８月', '９月', '１０月', '１１月', '１２月'],
@@ -22,21 +15,12 @@ const App: React.FC = () => (
   <Suspense fallback="loading...">
     <Router>
       <Switch>
-        {routes.map(({ isPrivate, LoadComponent, ...rest }, i) => {
-          if (isPrivate) {
-            return (
-              <PrivateRoute key={i} {...rest}>
-                <LoadComponent />
-              </PrivateRoute>
-            );
-          }
+        {routeElements()}
 
-          return (
-            <Route key={i} {...rest}>
-              <LoadComponent />
-            </Route>
-          );
-        })}
+        {/* If not match, return 404 page */}
+        <Route>
+          <div>404</div>
+        </Route>
       </Switch>
     </Router>
   </Suspense>

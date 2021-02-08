@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import React, { lazy } from 'react';
 
 type Routes = {
   LoadComponent: React.ComponentType,
@@ -7,17 +7,19 @@ type Routes = {
   isPrivate?: boolean,
   subRoutes?: Routes[]
 }
+
 const routes: Routes[] = [
   {
-    LoadComponent: lazy(() => import('components/pages/dashboard')),
-    exact: true,
     path: '/',
+    LoadComponent: lazy(() => import('components/pages/dashboard')),
     isPrivate: true,
+    exact: true,
   },
   {
+    path: '/login',
     LoadComponent: lazy(() => import('components/pages/login')),
     exact: true,
-    path: '/login',
   },
 ];
+
 export default routes;
