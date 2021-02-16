@@ -43,3 +43,5 @@ amplifyconfiguration.json
 amplify-gradle-config.json
 amplifyxc.config
 .idea/*
+
+.eslintcache

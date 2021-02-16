@@ -1,19 +1,22 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Route, RouteProps, Redirect,
 } from 'react-router-dom';
-import useAuth from 'hooks/useAuth';
+import { Store } from 'redux/store';
+
+// import useAuth from 'hooks/useAuth';
 
 const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   const loginPath = '/login';
-  const { isAuthenticated } = useAuth();
-
+  const { isAuth } = useSelector((state : Store) => state.auth);
+  console.log('isAuth', isAuth);
   if (!children) return null;
 
   return (
     <Route
       {...rest}
-      render={(innerProps: any) => (isAuthenticated ? (
+      render={(innerProps: any) => (isAuth ? (
         children
       ) : (
         <Redirect

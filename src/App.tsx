@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import moment from 'moment';
+import MenuAppBar from 'components/organismos/MenuAppBar';
 import routeElements from './router/routeElements';
 
 // momentの日本語設定

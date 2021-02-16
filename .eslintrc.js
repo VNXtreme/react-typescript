@@ -43,7 +43,7 @@ module.exports = {
       'error',
       { extensions: ['.jsx', '.tsx'] },
     ],
-    'linebreak-style': ['error', 'windows'],
+    'linebreak-style': ['error', 'unix'],
     'react/prop-types': 'off',
     'spaced-comment': [
       'error',

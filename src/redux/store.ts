@@ -1,7 +1,8 @@
 import { createStore, combineReducers } from 'redux';
 
 import ui, { UiState } from './ui';
-import auth, { AuthState } from './auth';
+import auth from './auth';
+import { AuthState } from './auth/auth.d';
 
 export interface Store {
     ui: UiState;
