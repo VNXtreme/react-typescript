@@ -1,8 +1,12 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
+import React, { Suspense, useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router, Switch, Route, useHistory,
+} from 'react-router-dom';
 import moment from 'moment';
-import MenuAppBar from 'components/organismos/MenuAppBar';
+import { setIsAuth } from 'redux/auth/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { Store } from 'redux/store';
+import useValidateJWT from 'hooks/useValidateJWT';
 import routeElements from './router/routeElements';
 
 // momentの日本語設定
@@ -12,19 +16,24 @@ moment.locale('ja', {
   weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
 });
 
-const App: React.FC = () => (
-  <Suspense fallback="loading...">
-    <Router>
-      <Switch>
-        {routeElements()}
+const App: React.FC = () => {
+  const { isTokenValidated } = useValidateJWT();
+  if (!isTokenValidated) return <div>Checking token...</div>;
 
-        {/* If not match, return 404 page */}
-        <Route>
-          <div>404</div>
-        </Route>
-      </Switch>
-    </Router>
-  </Suspense>
-);
+  return (
+    <Suspense fallback="Loading...">
+      <Router>
+        <Switch>
+          {routeElements()}
+
+          {/* If not match, return 404 page */}
+          <Route>
+            <div>404</div>
+          </Route>
+        </Switch>
+      </Router>
+    </Suspense>
+  );
+};
 
 export default App;

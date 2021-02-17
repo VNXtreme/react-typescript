@@ -73,7 +73,7 @@ const Login: React.FC = () => {
           >
             ログインする
           </PrimeButton>
-          <AzureAuthenticationButton onAuthenticated={onAuthenticated} />
+          {/* <AzureAuthenticationButton onAuthenticated={onAuthenticated} /> */}
         </form>
         <Box mt={2}>
           <Copyright />

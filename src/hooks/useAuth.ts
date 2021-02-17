@@ -21,8 +21,9 @@ const useAuth = () => {
       // then
       dispatch(setIsAuth(true));
       dispatch(setStaffname('authorizedStaffName'));
+      sessionStorage.setItem('token', '12345');
       resolve('authorizedStaffName');
-    }, 2000);
+    }, 1000);
   });
 
   const signup = (email: string, password: string) => {
@@ -32,7 +33,7 @@ const useAuth = () => {
       dispatch(setIsAuth(true));
       dispatch(setStaffname('authorizedStaffName'));
       return 'authorizedStaffName';
-    }, 2000);
+    }, 1000);
   };
 
   const signout = () => {
@@ -44,12 +45,6 @@ const useAuth = () => {
       return '';
     }, 1000);
   };
-
-  useEffect(() => {
-    // setTimeout(() => {
-    //   setIsAuthenticated(true);
-    // }, 10000);
-  }, []);
 
   return {
     signin,
