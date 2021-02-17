@@ -1,11 +1,8 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 import {
-  BrowserRouter as Router, Switch, Route, useHistory,
+  BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import moment from 'moment';
-import { setIsAuth } from 'redux/auth/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import { Store } from 'redux/store';
 import useValidateJWT from 'hooks/useValidateJWT';
 import routeElements from './router/routeElements';
 
@@ -18,6 +15,7 @@ moment.locale('ja', {
 
 const App: React.FC = () => {
   const { isTokenValidated } = useValidateJWT();
+  // prevent router redirect by return plain html
   if (!isTokenValidated) return <div>Checking token...</div>;
 
   return (

@@ -24,13 +24,14 @@ const Login: React.FC = () => {
 
   // console.log({ history });
   const classes = useStyles();
-  const { signin, onAuthenticated } = useAuth();
+  const { signin } = useAuth();
   const submit = async (e: any) => {
     e.preventDefault();
     const result = await signin('nghoang2013', '123');
     console.log({ result });
-    console.log({ history });
-    history.push('/');
+    const { state }: any = history.location;
+
+    history.push(state?.from?.pathname || '/');
   };
   useEffect(() => {
 

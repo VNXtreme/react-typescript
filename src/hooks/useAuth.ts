@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AccountInfo } from '@azure/msal-browser';
+import { setSessionStorage } from 'utility/browserStorageUtil';
 import { setIsAuth, setStaffname } from '../redux/auth/actions';
 import AzureAuthenticationButton from '../azure/azure-authentication-component';
 
@@ -21,7 +22,7 @@ const useAuth = () => {
       // then
       dispatch(setIsAuth(true));
       dispatch(setStaffname('authorizedStaffName'));
-      sessionStorage.setItem('token', '12345');
+      setSessionStorage('staffName', 'authorizedStaffName');
       resolve('authorizedStaffName');
     }, 1000);
   });
