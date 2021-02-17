@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router, Switch, Route,
 } from 'react-router-dom';
 import moment from 'moment';
-import useValidateJWT from 'hooks/useValidateJWT';
+import useValidateToken from 'hooks/useValidateToken';
 import routeElements from './router/routeElements';
 
 // momentの日本語設定
@@ -14,9 +14,9 @@ moment.locale('ja', {
 });
 
 const App: React.FC = () => {
-  const { isTokenValidated } = useValidateJWT();
+  const { isTokenChecked } = useValidateToken();
   // prevent router redirect by return plain html
-  if (!isTokenValidated) return <div>Checking token...</div>;
+  if (!isTokenChecked) return <div>Checking token...</div>;
 
   return (
     <Suspense fallback="Loading...">
